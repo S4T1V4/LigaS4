@@ -40,7 +40,7 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- Layout con paneles laterales (solo lectura / visita) -->
+    <!-- Layout con paneles laterales (solo lectura / visitas) -->
     <div class="page-grid">
         <!-- Panel Izquierdo (Resumen) -->
         <aside id="publicSideLeft" class="side-panel side-left" aria-label="Resumen del torneo">
