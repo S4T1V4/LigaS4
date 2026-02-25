@@ -1,0 +1,20 @@
+<IfModule mod_headers.c>
+  # HTML/PHP: que siempre se vuelva a pedir (tu app cambia aquí)
+  <FilesMatch "\.(php|html)$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # JS/CSS: que se revaliden (si cambiaron, baja los nuevos)
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 0 seconds"
+  ExpiresByType text/javascript "access plus 0 seconds"
+</IfModule>

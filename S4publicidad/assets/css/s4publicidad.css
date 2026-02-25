@@ -1,0 +1,502 @@
+/* S4Publicidad · UI minimal (claro, responsivo) */
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --accent:#2563eb;
+  --danger:#dc2626;
+  --ok:#16a34a;
+  --shadow:0 10px 30px rgba(17,24,39,.08);
+  --radius:16px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+  overflow:hidden;
+}
+
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+
+.muted{color:var(--muted);font-size:13px;line-height:1.35;overflow-wrap:anywhere}
+
+/* Buttons */
+.btn{
+  appearance:none;
+  border:1px solid transparent;
+  border-radius:12px;
+  padding:10px 12px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:var(--accent);
+  color:#fff;
+}
+.btn:hover{filter:brightness(0.98)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn-ghost{
+  background:#fff;
+  color:var(--text);
+  border-color:var(--line);
+}
+.btn-danger{
+  background:#fff;
+  color:var(--danger);
+  border-color:rgba(220,38,38,.25);
+}
+.btn-sm{padding:8px 10px;border-radius:10px;font-weight:700}
+
+/* Login (reusa clases antiguas para no romper) */
+.adm-shell{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:22px;
+}
+.adm-card{
+  width:100%;
+  max-width:520px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;
+  box-shadow:var(--shadow);
+}
+.adm-brand{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.adm-logo{
+  width:44px;height:44px;
+  border-radius:14px;
+  background:rgba(37,99,235,.12);
+  border:1px solid rgba(37,99,235,.20);
+  color:var(--accent);
+  font-weight:900;
+  display:grid;place-items:center;
+}
+.adm-card h1{margin:0;font-size:18px}
+.adm-card p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.adm-alert{
+  margin:12px 0;
+  background:rgba(220,38,38,.08);
+  border:1px solid rgba(220,38,38,.20);
+  color:#7f1d1d;
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:13px;
+}
+.adm-form{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.adm-form label{font-size:13px;color:var(--muted)}
+.adm-form input{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  background:#fff;
+  color:var(--text);
+  outline:none;
+}
+.adm-form input:focus{border-color:rgba(37,99,235,.45);box-shadow:0 0 0 3px rgba(37,99,235,.10)}
+.adm-form button{width:100%}
+.adm-foot{margin-top:12px;color:var(--muted);font-size:12px}
+
+/* Panel */
+.s4-top{
+  position:sticky;top:0;z-index:10;
+  background:rgba(246,247,251,.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.s4-top__brand{display:flex;gap:12px;align-items:center;min-width:0}
+.s4-badge{
+  width:38px;height:38px;border-radius:14px;
+  background:rgba(37,99,235,.12);
+  border:1px solid rgba(37,99,235,.18);
+  color:var(--accent);
+  font-weight:900;
+  display:grid;place-items:center;
+  flex:0 0 auto;
+}
+.s4-title{font-weight:900}
+.s4-sub{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70vw}
+.s4-top__actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+.s4-wrap{width:100%;max-width:none;margin:0;padding:16px;flex:1;min-height:0;overflow:hidden}
+
+/* Layout (master-detail) */
+.s4-layout{
+  display:grid;
+  grid-template-columns: 420px minmax(0, 1fr);
+  gap:14px;
+  /* Evita que el listado quede centrado verticalmente (espacio vacío arriba) */
+  align-items:stretch;
+  height:100%;
+  min-height:0;
+}
+.s4-left{min-width:0;display:flex;flex-direction:column;min-height:0;overflow:hidden;height:100%}
+/* el editor se identifica por id (sin clase) */
+#editorOverlay{min-width:0}
+
+/* Panel editor (desktop: columna izquierda) */
+#editorOverlay{
+  position:relative;
+  height:100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom:14px;
+  min-height:0;
+}
+.s4-editor__backdrop{display:none}
+.s4-editorCard{position:relative}
+
+.card__headActions{display:flex;gap:10px;align-items:center;flex:0 0 auto}
+.s4-close{display:none}
+
+/* Small helper to lock body scroll when modal is open */
+body.s4-noScroll{overflow:hidden}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
+  min-width:0;
+}
+.card__head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.card h2{margin:0;font-size:16px}
+
+.form{margin-top:10px}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.grid label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted);min-width:0}
+.grid input,.grid select,.grid textarea{width:100%;min-width:0;max-width:100%;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  background:#fff;
+  color:var(--text);
+  outline:none;
+}
+.grid textarea{resize:vertical;min-height:90px}
+.grid input:focus,.grid select:focus,.grid textarea:focus{border-color:rgba(37,99,235,.45);box-shadow:0 0 0 3px rgba(37,99,235,.10)}
+.span-2{grid-column:1 / -1}
+
+.s4-uploadRow{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:12px;align-items:start;margin-top:8px}
+.s4-preview{
+  width:100%;
+  border:1px dashed rgba(17,24,39,.18);
+  border-radius:14px;
+  background:rgba(17,24,39,.02);
+  min-height:140px;
+  display:grid;place-items:center;
+  overflow:hidden;
+}
+.s4-preview img{width:100%;height:100%;object-fit:cover;display:block}
+.s4-fileInfo{font-size:13px;overflow-wrap:anywhere;min-width:0}
+.s4-kv{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed rgba(17,24,39,.10)}
+.s4-kv b{color:var(--text)}
+
+.s4-actions{margin-top:14px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.s4-actions__right{display:flex;gap:10px;align-items:center}
+
+.alert{
+  margin-top:12px;
+  background:rgba(220,38,38,.08);
+  border:1px solid rgba(220,38,38,.20);
+  color:#7f1d1d;
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:13px;
+}
+
+.s4-toolbar{
+  margin-top:6px;
+  padding:10px 2px;
+  flex:0 0 auto;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.s4-filters{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.s4-filters label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)}
+.s4-filters select{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  background:#fff;
+  color:var(--text);
+  min-width:220px;
+}
+.s4-filters .chk{flex-direction:row;gap:8px;align-items:center}
+.s4-filters input[type="checkbox"]{transform:translateY(1px)}
+
+.s4-grid{
+  margin-top:8px;
+  display:grid;
+  /* Más denso (más items por pantalla) */
+  /* min-width suficiente para que quepan switch + iconos sin cortarse */
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  /* Cuando solo hay 1 fila, el valor por defecto (align-content: stretch)
+     estira esa fila para llenar toda la altura del contenedor; eso hace que
+     cada tarjeta se vuelva una "columna" gigante. */
+  align-content:start;
+  grid-auto-rows:max-content;
+  gap:8px;
+  flex:1 1 auto;
+  min-height:0;
+  overflow:auto;
+  padding:2px 2px 10px;
+}
+.ad-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  display:grid;
+  /* Cards compactas y consistentes */
+  grid-template-columns:72px minmax(0, 1fr);
+  align-items:stretch;
+  height:120px;
+  /* Evita que el item se estire al alto de la fila del grid */
+  align-self:start;
+  cursor:pointer;
+}
+.ad-card.is-selected{outline:3px solid rgba(37,99,235,.18);outline-offset:-3px}
+.ad-card__img{
+  /* Thumb fija (no estira el card) */
+  height:100%;
+  min-height:0;
+  background:rgba(17,24,39,.02);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-right:1px solid var(--line);
+  padding:8px;
+}
+.ad-card__img img{width:100%;height:100%;object-fit:cover;display:block;border-radius:12px}
+.ad-card__body{padding:8px 10px;display:flex;flex-direction:column;gap:6px;min-width:0;height:100%}
+.ad-card__top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;min-width:0}
+.ad-card__title{font-weight:900;line-height:1.15;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;min-width:0;flex:1 1 auto}
+.ad-card__controls{display:flex;gap:3px;align-items:center;flex:0 0 auto;flex-wrap:nowrap;justify-content:flex-end}
+.ad-card__meta{display:flex;gap:6px;flex-wrap:nowrap;align-items:center;min-width:0;overflow:hidden}
+
+/* En cards compactas: evita que las pills rompan el alto */
+.ad-card__meta .pill{
+  max-width:140px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* Switch (activo) */
+.switch{position:relative;display:inline-flex;align-items:center}
+.switch input{position:absolute;opacity:0;pointer-events:none}
+.switch span{
+  width:42px;height:24px;border-radius:999px;
+  background:#fff;
+  border:1px solid var(--line);
+  display:inline-block;
+  position:relative;
+  transition:background .15s ease,border-color .15s ease;
+}
+.switch span:before{
+  content:"";
+  position:absolute;top:50%;left:3px;
+  width:18px;height:18px;border-radius:999px;
+  background:rgba(17,24,39,.70);
+  transform:translateY(-50%);
+  transition:left .15s ease,background .15s ease;
+}
+.switch input:checked + span{
+  background:rgba(22,163,74,.10);
+  border-color:rgba(22,163,74,.35);
+}
+.switch input:checked + span:before{left:21px;background:var(--ok)}
+.switch input:focus-visible + span{box-shadow:0 0 0 3px rgba(37,99,235,.10)}
+
+/* Icon button (delete) */
+.icon-btn{
+  appearance:none;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--text);
+  width:32px;height:32px;
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-weight:900;
+  line-height:1;
+}
+.icon-btn:hover{filter:brightness(.99)}
+.icon-btn:disabled{opacity:.6;cursor:not-allowed}
+.icon-btn--danger{color:var(--danger);border-color:rgba(220,38,38,.25)}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  font-size:12px;
+  color:var(--text);
+}
+.pill--ok{border-color:rgba(22,163,74,.28);background:rgba(22,163,74,.08)}
+.pill--no{border-color:rgba(220,38,38,.25);background:rgba(220,38,38,.07)}
+
+/* Compact controls inside ad cards */
+.ad-card .icon-btn{width:26px;height:26px;border-radius:9px}
+.ad-card .switch span{width:32px;height:18px}
+.ad-card .switch span:before{width:14px;height:14px;left:2px}
+.ad-card .switch input:checked + span:before{left:16px}
+.ad-card .pill{padding:4px 8px;font-size:11px}
+
+@media (max-width: 980px){
+  .s4-layout{grid-template-columns: 380px minmax(0, 1fr)}
+}
+
+/* Mobile: editor as modal (overlay + bottom sheet) */
+@media (max-width: 860px){
+  .s4-layout{grid-template-columns:1fr}
+
+  #editorOverlay{
+    position:fixed;
+    inset:0;
+    top:0;
+    height:auto;
+    overflow:hidden;
+    padding:16px;
+    display:none;
+    background:rgba(17,24,39,.35);
+    backdrop-filter:blur(6px);
+    z-index:40;
+  }
+  #editorOverlay.is-open{display:flex;align-items:flex-end;justify-content:center}
+  .s4-editor__backdrop{display:block;position:absolute;inset:0}
+  .s4-editorCard{
+    width:100%;
+    max-width:720px;
+    max-height:calc(100vh - 24px);
+    overflow:auto;
+    border-radius:20px;
+  }
+  .s4-close{display:inline-flex}
+}
+
+@media (max-width: 760px){
+  .grid{grid-template-columns:1fr}
+  .s4-uploadRow{grid-template-columns:1fr}
+  .s4-sub{max-width:58vw}
+  .s4-filters select{min-width:180px}
+  .s4-grid{grid-template-columns:1fr}
+  .s4-grid{grid-template-columns:1fr}
+  .ad-card{grid-template-columns:72px minmax(0,1fr);height:96px}
+  .ad-card__img{padding:6px}
+  .ad-card__title{font-size:13px}
+}
+
+/* Floating action button (mobile only) */
+.s4-fab{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:54px;
+  height:54px;
+  border-radius:18px;
+  border:1px solid rgba(37,99,235,.25);
+  background:var(--accent);
+  color:#fff;
+  font-weight:900;
+  font-size:22px;
+  box-shadow:var(--shadow);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.s4-fab:hover{filter:brightness(.98)}
+
+@media (max-width: 860px){
+  .s4-fab{display:flex}
+}
+
+
+/* Date inputs (texto + picker oculto) */
+.s4-dateRow{display:flex;gap:8px;align-items:center}
+.s4-dateRow input{flex:1;min-width:0}
+.s4-srOnly{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Visor de imagen */
+.s4-viewer{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(17,24,39,.55);
+  z-index:70;
+}
+.s4-viewer.is-open{display:flex}
+.s4-viewer__backdrop{position:absolute;inset:0}
+.s4-viewer__panel{
+  position:relative;
+  max-width:min(1100px, 100%);
+  max-height:calc(100vh - 36px);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  padding:12px;
+  z-index:1;
+}
+.s4-viewer__panel img{
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:calc(100vh - 120px);
+  display:block;
+  object-fit:contain;
+  border-radius:14px;
+  background:rgba(17,24,39,.02);
+}
+.s4-viewer__close{position:absolute;top:10px;right:10px}
+
+/* Clamp helpers for compact cards */
+.ad-card__desc{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
+  min-height:16px;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  -webkit-box-orient:vertical;
+}
+.ad-card__range{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
