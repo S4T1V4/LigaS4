@@ -84,7 +84,7 @@
             </div>
         </aside>
 
-        <!-- Centro -->
+        <!-- Centro div -->
         <div class="container">
         <header class="app-header" id="appHeader">
 
